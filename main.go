@@ -59,17 +59,17 @@ func SendMessage(notification Notification, defaultRobot string) {
 		log.Println("notification.CommonAnnotations Marshal failed,", err)
 		return
 	}
-	//msg2,err := json.Marshal(notification.CommonAnnotations["description"])
-	//if err != nil {
-	//	log.Println("notification.CommonAnnotations Marshal failed,", err)
-	//	return
-	//}
+	msg2, err := json.Marshal(notification.CommonAnnotations["description"])
+	if err != nil {
+		log.Println("notification.CommonAnnotations Marshal failed,", err)
+		return
+	}
 	// 告警消息
 	var buffer bytes.Buffer
 	buffer.WriteString(fmt.Sprintf("告警: %v\n", string(msg)))
 	buffer.WriteString(fmt.Sprintf("Endpoint: %v\n", string(msg1)))
-	//buffer.WriteString(fmt.Sprintf("告警描述: %v\n",string(msg2)))
-	buffer.WriteString(fmt.Sprintf("告警描述: \"顺顺，我挂了，快来救我^OO^\"\n"))
+	buffer.WriteString(fmt.Sprintf("告警描述: %v\n", string(msg2)))
+	//buffer.WriteString(fmt.Sprintf("告警描述: \"顺顺，我挂了，快来救我^OO^\"\n"))
 	//buffer.WriteString(fmt.Sprintf("mentioned_mobile_list: %v\n",msgres["mentioned_mobile_list"]))
 	buffer.WriteString(fmt.Sprintf("Status:%v\n", notification.Status))
 	// 恢复消息
